@@ -15,17 +15,17 @@ window.SOUND_CONFIG = {
   fadeMs: 1400,
 
   // 기본 배경음악 — 계속 재생된다
-  main: { src: '', volume: 0.5 },
+  main: { src: 'https://youtu.be/ypNgvc6c6Cc?si=sLpjgyxsPRgeqRYj', volume: 0.5 },
 
   // 오리진 프로필을 열면 기본 배경음악 대신 재생되는 곡.
   // 비어 있는 오리진은 기본 배경음악이 그대로 이어진다.
   origins: {
-    just:  { src: '', volume: 0.5 },
-    moss:  { src: '', volume: 0.5 },
-    chan:  { src: '', volume: 0.5 },
-    sis:   { src: '', volume: 0.5 },
-    kaien: { src: '', volume: 0.5 },
-    mary:  { src: '', volume: 0.5 }
+    just:  { src: 'https://youtu.be/70o5KM87jGY?si=8ebWcAFHoxmVs5x_', volume: 0.5 },
+    moss:  { src: 'https://youtu.be/lJSnestdHag?si=dWMhc9l5ubmL_n_S', volume: 0.5 },
+    chan:  { src: 'https://youtu.be/BH0E76oozIc?si=ckjJDx9WV_yhEndo', volume: 0.5 },
+    sis:   { src: 'https://youtu.be/LJww9efuKSo?si=08tPyTmYXakPJgDw', volume: 0.5 },
+    kaien: { src: 'https://youtu.be/OAJIU9nMbYY?si=TPgxERSaoTe2GOgV', volume: 0.5 },
+    mary:  { src: 'https://youtu.be/7wGveEgJ8ug?si=o-XkgYhFt_ZpsBRq', volume: 0.5 }
   },
 
   // 효과음 — 짧은 mp3/ogg/wav 파일만 가능 (유튜브 불가)
