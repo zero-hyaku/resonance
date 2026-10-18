@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RESONANCE — 공명 기록 보관소</title>
+  <meta name="description" content="RESONANCE 세계관 아카이브. 대륙 베르툼과 여섯 오리진의 기록.">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= 초기 진입: 접속 / 인증 ================= -->
+  <div id="boot" class="boot" aria-live="polite">
+    <div class="boot-grid" aria-hidden="true"></div>
+    <button class="boot-skip" type="button" data-skip>SKIP ▸</button>
+
+    <div class="boot-box">
+      <div class="boot-head">
+        <span class="sq"></span>
+        <span class="mono">R.A. SECURE TERMINAL</span>
+        <span class="boot-head-r mono">NODE 03-EIR</span>
+      </div>
+
+      <div class="boot-logo">
+        <div class="boot-emblem" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="56" class="be-o"/>
+            <circle cx="60" cy="60" r="40" class="be-m"/>
+            <path d="M60 4V24M60 96V116M4 60H24M96 60H116" class="be-t"/>
+            <path d="M20 60 Q32 34 44 60 T68 60 T92 60 T100 60" class="be-w"/>
+          </svg>
+        </div>
+        <h1 class="boot-title">RESONANCE</h1>
+        <p class="boot-sub">공명 기록 보관소 · Resonance Archive</p>
+      </div>
+
+      <ol class="boot-log mono" data-log></ol>
+
+      <form class="boot-form" data-form autocomplete="off" onsubmit="return false">
+        <label class="bf-row">
+          <span class="bf-k mono">CONDUCTOR ID</span>
+          <span class="bf-v mono" data-id></span>
+        </label>
+        <label class="bf-row">
+          <span class="bf-k mono">PASSCODE</span>
+          <span class="bf-v mono" data-pw></span>
+        </label>
+      </form>
+
+      <div class="boot-progress" data-progress>
+        <div class="bp-top mono"><span data-ptext>공명 파장 동기화</span><span data-pnum>0%</span></div>
+        <div class="bp-bar"><i data-pbar></i></div>
+      </div>
+
+      <div class="boot-granted" data-granted>
+        <span class="mono">ACCESS GRANTED</span>
+        <strong>환영합니다, 지휘자.</strong>
+      </div>
+    </div>
+
+    <p class="boot-foot mono">UNAUTHORIZED ACCESS IS PUNISHABLE UNDER EXECUTIVE BUREAU ORDINANCE 2550-07</p>
+  </div>
+
+  <!-- ================= 메인 ================= -->
+  <div id="app" class="app" aria-hidden="true">
+
+    <header class="hud-top">
+      <div class="hud-brand">
+        <span class="hud-logo">RESONANCE</span>
+        <span class="hud-sub mono">ARCHIVE TERMINAL // VERTUM</span>
+      </div>
+      <div class="hud-clock mono" data-clock>R.E. 3026</div>
+      <div class="hud-status mono">
+        <span><i class="led"></i>LINK STABLE</span>
+        <span>SYNC <b data-sync>97.4</b>%</span>
+        <span class="hud-user">USER: CONDUCTOR</span>
+      </div>
+    </header>
+
+    <nav class="menu" aria-label="아카이브 메뉴">
+      <p class="menu-cap mono"><span class="sq"></span>INDEX</p>
+      <ul>
+        <li><button data-open="world"><span class="mi-n mono">01</span><span class="mi-en">WORLD</span><span class="mi-ko">세계의 시작</span></button></li>
+        <li><button data-open="system"><span class="mi-n mono">02</span><span class="mi-en">RESONANCE</span><span class="mi-ko">공명 체계</span></button></li>
+        <li><button data-open="threat"><span class="mi-n mono">03</span><span class="mi-en">DISSONANT</span><span class="mi-ko">디소넌트</span></button></li>
+        <li><button data-open="region"><span class="mi-n mono">04</span><span class="mi-en">REGIONS</span><span class="mi-ko">지역</span></button></li>
+        <li><button data-open="faction"><span class="mi-n mono">05</span><span class="mi-en">FACTIONS</span><span class="mi-ko">기관</span></button></li>
+        <li><button data-open="origins"><span class="mi-n mono">06</span><span class="mi-en">ORIGINS</span><span class="mi-ko">오리진</span></button></li>
+        <li><button data-open="personnel"><span class="mi-n mono">07</span><span class="mi-en">PERSONNEL</span><span class="mi-ko">인물</span></button></li>
+      </ul>
+    </nav>
+
+    <main class="stage">
+      <div class="globe-frame" data-globe-frame>
+        <svg class="globe-hud" viewBox="0 0 1000 1000" aria-hidden="true">
+          <circle cx="500" cy="500" r="470" class="gh-ring gh-ring--outer"/>
+          <circle cx="500" cy="500" r="452" class="gh-ring gh-ring--dash"/>
+          <g class="gh-ticks"></g>
+          <path d="M500 18V60M500 940V982M18 500H60M940 500H982" class="gh-cross"/>
+          <text x="500" y="14" class="gh-txt" text-anchor="middle">N 90.00</text>
+          <text x="500" y="996" class="gh-txt" text-anchor="middle">S 90.00</text>
+        </svg>
+        <div class="globe-host" data-globe></div>
+        <div class="marker-layer" data-markers></div>
+        <div class="globe-loading mono" data-globe-loading>RENDERING PLANETARY MODEL…</div>
+        <div class="globe-ctrl">
+          <button type="button" data-zoom="-0.35" aria-label="확대">＋</button>
+          <button type="button" data-zoom="0.35" aria-label="축소">－</button>
+          <button type="button" data-reset aria-label="시점 초기화">⟲</button>
+        </div>
+      </div>
+    </main>
+
+    <aside class="side" aria-live="polite">
+        <div class="side-card" data-side></div>
+        <div class="legend">
+          <p class="legend-cap mono"><span class="sq"></span>DISPLAY FILTER</p>
+          <label><input type="checkbox" data-filter="region" checked><i class="lg lg--region"></i>지역</label>
+          <label><input type="checkbox" data-filter="faction" checked><i class="lg lg--faction"></i>기관</label>
+          <label><input type="checkbox" data-filter="origin" checked><i class="lg lg--origin"></i>오리진 본체</label>
+        </div>
+    </aside>
+
+    <footer class="hud-bottom mono">
+      <span data-cursor>LAT —— / LON ——</span>
+      <span data-sector>SECTOR: ——</span>
+      <span class="hb-hint">DRAG: ROTATE · WHEEL: ZOOM · CLICK: OPEN RECORD</span>
+    </footer>
+  </div>
+
+  <div id="window-layer" class="window-layer"></div>
+  <div id="popup-layer" class="popup-layer"></div>
+
+  <div class="fx-scan" aria-hidden="true"></div>
+  <div class="fx-vignette" aria-hidden="true"></div>
+
+  <script src="js/vendor/three.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/mapgeo.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
