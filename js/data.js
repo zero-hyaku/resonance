@@ -281,7 +281,7 @@ window.RES = (function () {
         { id: 'ruin', name: '제4외곽도시 폐허', en: 'Ruins of the 4th Outer City', tag: '북부', desc: '60만 명이 통째로 사라진 도시. 깨진 거울 조각이 곳곳에 박혀 있고, 조각에 비치는 것은 사라지기 전의 도시 풍경이다. 유스트가 당시 지휘자와 함께 카덴차를 토벌한 곳.' },
         { id: 'corridor', name: '트레몰로 라인 회랑', en: 'Tremolo Line Corridor', desc: '결계 열차 선로가 지나는 길. 외연부를 따라 깔려 있지만, 결계가 약한 구간은 정적층까지 잠겨 있다.' },
         { id: 'plains', name: '동부 평원', en: 'Eastern Plains', desc: '끝없는 흑백 평원. 레퀴엠이 영역을 지배하고, 코러스 무리가 소리 없이 이동한다.' },
-        { id: 'vacuum', name: '서부 광산 지대 (불모의 진공)', en: 'Barren Vacuum', desc: '엘레지의 \'침묵의 전염병\'이 퍼졌던 아이언 밸리 서부의 갱도 일대. 50년간 생물이 살 수 없는 땅으로 남았다가 사일런트 존으로 지정되었다.' }
+        { id: 'vacuum', name: '불모의 진공', en: 'Barren Vacuum', desc: '엘레지의 \'침묵의 전염병\'이 퍼졌던 아이언 밸리 서부의 갱도 일대. 50년간 생물이 살 수 없는 땅으로 남았다가 사일런트 존으로 지정되었다.' }
       ],
       threatText: '거주 불가. 노이즈와 코러스 무리가 상주하며, 깊은 곳에는 레퀴엠과 아리아의 잔해가 있다.',
       threatLabel: '거주 불가'
