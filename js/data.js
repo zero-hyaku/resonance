@@ -441,7 +441,7 @@ window.RES = (function () {
       }
     },
     mary: {
-      kind: 'origin', color: '#ff6fb5', name: '메리', en: 'Mary', weapon: '도끼', value: '투쟁',
+      kind: 'origin', color: '#ff6fb5', side: 'right', name: '메리', en: 'Mary', weapon: '도끼', value: '투쟁',
       position: '교단의 신', grade: '오리진', body: '루미나 성궤 신전 정중앙, 투신의 성소', affiliation: '성궤교단',
       awaken: 'R.E. 3005', contracts: '없음',
       img: 'assets/img/characters/mary',
