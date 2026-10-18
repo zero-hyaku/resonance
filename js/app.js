@@ -402,7 +402,7 @@
      05 FACTION
      ========================================================= */
   function memberRole(c) {
-    if (c.kind === 'origin') return `오리진 · ${c.position}`;
+    if (c.kind === 'origin') return c.position ? `오리진 · ${c.position}` : '오리진';
     if (c.kind === 'conductor') return `${c.position} · 지휘자`;
     if (c.kind === 'resonant') return `${c.grade} · ${ch(c.partner).name}의 레조넌트`;
     return c.position || '';
@@ -444,17 +444,36 @@
      06 ORIGINS / 07 PERSONNEL
      ========================================================= */
   function renderOrigins() {
+    const n = R.originOrder.length;
+    const ang = i => (i / n) * Math.PI * 2 - Math.PI / 2;
+    const spokes = R.originOrder.map((_, i) => {
+      const a = ang(i);
+      return `<line x1="${(50 + Math.cos(a) * 28).toFixed(2)}" y1="${(50 + Math.sin(a) * 28).toFixed(2)}" x2="${(50 + Math.cos(a) * 32).toFixed(2)}" y2="${(50 + Math.sin(a) * 32).toFixed(2)}"/>`;
+    }).join('');
+    const nodes = R.originOrder.map((id, i) => {
+      const c = ch(id), a = ang(i);
+      return `<div class="onode" style="left:${(50 + Math.cos(a) * 40).toFixed(2)}%;top:${(50 + Math.sin(a) * 40).toFixed(2)}%">
+        <button type="button" class="onode-btn rv" data-profile="${id}">
+          ${slot(c.img, 'square', c.en, 'slot--round')}
+          <span class="onode-n"><span class="mono">ORIGIN 0${i + 1}</span><b>${esc(c.name)}</b><small>${esc(c.en.toUpperCase())} · ${esc(c.weapon)}</small></span>
+        </button></div>`;
+    }).join('');
     return `
-      <div class="hero-title rv"><span class="en">THE SIX ORIGINS</span><span class="ko">세계를 지탱하는 여섯 기둥</span></div>
-      <section class="sec"><p class="lede rv">${esc(R.originConcept.text)}</p></section>
-      <div class="ogrid">${R.originOrder.map((id, i) => {
-        const c = ch(id);
-        return `<button type="button" class="ocard rv" data-profile="${id}">
-          <span class="ocard-w">${esc(c.weapon)}</span>
-          ${slot(c.img, 'portrait', c.en)}
-          <span class="ocard-b"><span class="mono">ORIGIN 0${i + 1}</span><b>${esc(c.name)}</b><small>${esc(c.en.toUpperCase())}</small><p>${esc(c.affiliation)} · ${esc(c.position)}</p></span>
-        </button>`;
-      }).join('')}</div>`;
+      <div class="orbit">
+        <svg class="orbit-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="40" class="ob-ring"/>
+          <circle cx="50" cy="50" r="47" class="ob-ring ob-ring--dash"/>
+          <circle cx="50" cy="50" r="27" class="ob-ring ob-ring--in"/>
+          <g class="ob-spokes">${spokes}</g>
+        </svg>
+        <div class="orbit-core"><div class="rv">
+          <span class="mono">AXIS OF THE WORLD</span>
+          <h3>THE SIX<br>ORIGINS</h3>
+          <p class="orbit-ko">세계를 지탱하는 여섯 기둥</p>
+          <p class="orbit-text">${esc(R.originConcept.text)}</p>
+        </div></div>
+        ${nodes}
+      </div>`;
   }
   function renderPersonnel() {
     const pairs = R.factions.map(f => {
@@ -636,7 +655,7 @@
     const c = ch(id), P = c.past;
     return `
       <div class="past-head rv"><span class="mono">CLASSIFIED // BEYONDER RECORD</span>
-        <h3 class="past-name">${esc(P.trueEn.toUpperCase())}<small>본명 ${esc(P.trueName)} — ${esc(P.title)}</small></h3></div>
+        <h3 class="past-name">${esc(P.trueEn.toUpperCase())}<small>${esc(P.trueName)} — ${esc(P.title)}</small></h3></div>
       <section class="pf-sec rv"><h5>과거<span>BEFORE THE SILENCE</span></h5><p>${esc(P.text)}</p></section>
       <section class="pf-sec rv"><h5>시련<span>TRIAL</span></h5>
         <div class="trial"><span class="mono">TRIAL OF ${esc(P.trueEn.toUpperCase())}</span><h6>${esc(P.trial.name)}</h6><small>${esc(P.trial.en.toUpperCase())}</small>

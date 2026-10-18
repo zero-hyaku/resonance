@@ -264,7 +264,8 @@ window.Globe = (function () {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-    let camDist = 4.15, camTarget = 4.15;
+    const HOME_DIST = 6.2;
+    let camDist = HOME_DIST, camTarget = HOME_DIST;
     camera.position.set(0, 0, camDist);
 
     const root = new THREE.Group();
@@ -463,10 +464,10 @@ window.Globe = (function () {
     });
     host.addEventListener('wheel', e => {
       e.preventDefault();
-      camTarget = Math.max(2.4, Math.min(5.6, camTarget + e.deltaY * 0.0018));
+      camTarget = Math.max(2.4, Math.min(8, camTarget + e.deltaY * 0.0024));
     }, { passive: false });
 
-    function zoom(d) { camTarget = Math.max(2.4, Math.min(5.6, camTarget + d)); }
+    function zoom(d) { camTarget = Math.max(2.4, Math.min(8, camTarget + d)); }
 
     // 마커 hover/click
     markers.forEach(mk => {
@@ -571,7 +572,7 @@ window.Globe = (function () {
 
     return {
       focusOn, setHot, zoom, setMap,
-      reset() { focusOn(500, 430, 900); camTarget = 4.15; },
+      reset() { focusOn(500, 430, 900); camTarget = HOME_DIST; },
       pause(v) { paused = v; },
       setFilter(type, on) { markers.forEach(mk => { if (mk.def.type === type) mk.el.classList.toggle('is-filtered', !on); }); }
     };

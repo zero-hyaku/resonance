@@ -410,7 +410,7 @@ window.RES = (function () {
     },
     sis: {
       kind: 'origin', name: '시스', en: 'Sis', weapon: '활', value: '자유',
-      position: '없음 (무소속)', grade: '오리진', body: '아이언 밸리, 녹음의 협곡', affiliation: '무소속 · 강철의 송곳니와 동행',
+      grade: '오리진', body: '아이언 밸리, 녹음의 협곡', affiliation: '무소속 · 강철의 송곳니와 동행',
       awaken: '약 R.E. 3006 (가장 최근에 깨어난 오리진)', contracts: '없음',
       img: 'assets/img/characters/sis',
       duty: '강철의 송곳니 소속은 아니지만 주로 그들과 함께 다니며 거점으로 삼는다. 중요한 일은 하지 않고 방랑자처럼 떠돌 뿐이다. 송곳니 본부의 지붕 위나 날아다니는 모습으로 자주 목격되며, 거주 구역 근처로 다가오는 디소넌트 일부를 저격해 제거한다.',
@@ -538,7 +538,7 @@ window.RES = (function () {
   const markers = [
     { type: 'region', id: 'eirene', x: 604, y: 352, side: 'r' },
     { type: 'region', id: 'iron-valley', x: 110, y: 330, side: 'l' },
-    { type: 'region', id: 'lumina', x: 612, y: 668, side: 'r' },
+    { type: 'region', id: 'lumina', x: 640, y: 640, side: 'r' },
     { type: 'region', id: 'silent-zone', x: 780, y: 220, side: 'r' },
     { type: 'faction', id: 'bureau', x: 520, y: 362, side: 'l' },
     { type: 'faction', id: 'fangs', x: 120, y: 470, side: 'l' },

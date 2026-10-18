@@ -272,15 +272,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   background: rgba(0,0,0,.72); border: 1px solid var(--line);
   line-height: 1.25; transition: background .25s, border-color .25s, color .25s, opacity .25s;
 }
-.mk-label b { display: block; font-weight: 600; font-size: 13px; letter-spacing: .02em; }
-.mk-label small { display: block; font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: .1em; }
+.mk-label b { display: block; font-weight: 600; font-size: 12.5px; letter-spacing: .02em; }
+.mk-label small { display: none; font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: .1em; }
+.mk.is-hot .mk-label small { display: block; }
 .mk--r .mk-lead { left: 8px; }
 .mk--r .mk-label { left: 30px; }
 .mk--l .mk-lead { right: 8px; }
 .mk--l .mk-label { right: 30px; }
 
 .mk--region .mk-glyph { width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border: 1.5px solid var(--b1); transform: rotate(45deg); background: rgba(0,0,0,.6); }
-.mk--region .mk-label b { font-family: var(--f-body); font-size: 14px; }
+.mk--region .mk-label b { font-family: var(--f-body); font-size: 13.5px; }
 .mk--region .mk-label { border-color: rgba(156,200,255,.35); }
 .mk--faction .mk-glyph { width: 10px; height: 10px; margin: -5px 0 0 -5px; background: var(--b2); box-shadow: 0 0 0 3px rgba(0,0,0,.6), 0 0 0 4px var(--b2); }
 .mk--origin .mk-glyph { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; background: #fff; border-radius: 50%; box-shadow: 0 0 0 3px rgba(0,0,0,.5), 0 0 0 4px rgba(255,255,255,.6), 0 0 14px rgba(255,255,255,.7); }
@@ -353,7 +354,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 
 .win {
-  position: absolute; inset: clamp(12px, 4vh, 48px) clamp(12px, 5vw, 96px);
+  position: absolute; top: clamp(12px, 4vh, 48px); bottom: clamp(12px, 4vh, 48px);
+  left: 0; right: 0; margin: 0 auto;
+  width: min(calc(100vw - 24px), max(760px, 67.5vw));
   display: flex; flex-direction: column;
   background: rgba(7,7,7,.97);
   border: 1px solid var(--line-2);
@@ -496,12 +499,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .zones { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
 .zone { text-align: left; display: block; border: 1px solid var(--line); background: var(--k2); transition: border-color .2s, transform .2s var(--ease); }
 .zone .slot { border: 0; border-bottom: 1px solid var(--line); }
-.zone-n { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 9px 11px 10px; }
+.zone-n { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 10px 14px 11px; }
 .zone-n b { font-weight: 600; font-size: 14px; }
 .zone-n small { font-family: var(--f-mono); font-size: 10px; color: var(--tx-3); letter-spacing: .06em; text-align: right; }
-.zone:hover, .zone:focus-visible { border-color: var(--b1); transform: translateY(-2px); }
-.zone:hover .zone-n { background: var(--b1); color: var(--k0); }
-.zone:hover .zone-n small { color: rgba(0,0,0,.6); }
+.zone:hover, .zone:focus-visible { border-color: var(--b1); background: var(--k4); }
 
 /* 생활상 타일 */
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
@@ -642,10 +643,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* 오리진 미니 */
 .omini { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
 .omini button { border: 1px solid var(--line); background: var(--k2); text-align: left; transition: border-color .2s; }
-.omini button:hover { border-color: var(--b1); }
+.omini button:hover { border-color: var(--b1); background: var(--k4); }
 .omini .slot { border: 0; border-bottom: 1px solid var(--line); }
-.omini span { display: block; padding: 6px 8px; font-size: 13px; font-weight: 600; }
-.omini small { display: block; padding: 0 8px 8px; font-size: 11px; color: var(--tx-3); }
+.omini span { display: block; padding: 8px 12px 2px; font-size: 13px; font-weight: 600; }
+.omini small { display: block; padding: 0 12px 10px; font-size: 11px; color: var(--tx-3); }
 
 /* ---------- THREAT ---------- */
 .ratio { display: flex; height: 54px; border: 1px solid var(--line-2); margin-bottom: 8px; }
@@ -740,12 +741,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .members { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 .member { text-align: left; border: 1px solid var(--line); background: var(--k2); transition: border-color .2s, transform .2s var(--ease); }
 .member .slot { border: 0; border-bottom: 1px solid var(--line); }
-.member-n { padding: 9px 11px 11px; }
+.member-n { display: block; padding: 10px 14px 12px; }
 .member-n b { display: block; font-size: 15px; font-weight: 700; }
 .member-n small { display: block; font-size: 11.5px; color: var(--tx-3); }
-.member:hover, .member:focus-visible { border-color: var(--b1); transform: translateY(-2px); }
-.member:hover .member-n { background: var(--b1); color: var(--k0); }
-.member:hover .member-n small { color: rgba(0,0,0,.6); }
+.member:hover, .member:focus-visible { border-color: var(--b1); background: var(--k4); }
 .member--origin .member-n b::after { content: 'ORIGIN'; font-family: var(--f-mono); font-weight: 400; font-size: 9px; letter-spacing: .14em; margin-left: 8px; padding: 1px 5px; border: 1px solid currentColor; vertical-align: 2px; opacity: .8; }
 
 /* ---------- PERSONNEL ---------- */
@@ -769,7 +768,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   animation: crt-on-c .55s var(--ease) both;
 }
 .pop.is-off { animation: crt-off-c .3s cubic-bezier(.6,0,.9,.4) both; }
-.pop--profile { width: min(1080px, calc(100vw - 32px)); height: min(820px, calc(100vh - 48px)); }
+.pop--profile { width: min(810px, calc(100vw - 32px)); height: min(820px, calc(100vh - 48px)); }
 .pop-head { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--line); }
 .pop-head .mono { font-size: 10px; color: var(--b1); letter-spacing: .14em; }
 .pop-body { overflow-y: auto; padding: 18px; }
@@ -782,7 +781,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .zp .chips { margin-top: 10px; }
 
 /* 프로필 */
-.profile { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); width: 100%; min-height: 0; }
+.profile { display: grid; grid-template-columns: minmax(220px, 270px) minmax(0, 1fr); width: 100%; min-height: 0; }
 .pf-left { border-right: 1px solid var(--line); padding: 20px; overflow-y: auto; background: linear-gradient(180deg, rgba(90,162,255,.05), transparent 40%); }
 .pf-left .slot { margin-bottom: 16px; }
 .pf-name { font-size: 28px; font-weight: 800; line-height: 1.2; }
@@ -834,21 +833,31 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .trial h6 { font-size: 20px; font-weight: 800; margin: 6px 0 2px; }
 .trial h6 + small { font-family: var(--f-title); font-size: 11px; color: var(--tx-3); letter-spacing: .14em; }
 .trial p { font-size: 14px; line-height: 1.95; color: var(--tx-2); margin: 16px auto 0; max-width: 56ch; font-style: italic; }
-.trial q { display: block; margin-top: 22px; font-size: clamp(18px, 2.2vw, 24px); font-weight: 800; color: #fff; quotes: '「' '」'; }
+.trial q { display: block; margin-top: 22px; font-size: 22px; font-weight: 800; color: #fff; quotes: '「' '」'; }
 
-/* ---------- ORIGINS 그리드 ---------- */
-.ogrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
-.ocard { position: relative; text-align: left; border: 1px solid var(--line); background: var(--k2); overflow: hidden; transition: border-color .2s, transform .25s var(--ease); }
-.ocard .slot { border: 0; border-bottom: 1px solid var(--line); }
-.ocard-b { padding: 12px 14px 14px; }
-.ocard-b .mono { font-size: 10px; color: var(--tx-3); letter-spacing: .14em; }
-.ocard-b b { display: block; font-size: 20px; font-weight: 800; margin-top: 2px; }
-.ocard-b small { display: block; font-family: var(--f-title); font-size: 11px; color: var(--b1); letter-spacing: .12em; }
-.ocard-b p { font-size: 12px; color: var(--tx-2); margin-top: 8px; }
-.ocard:hover, .ocard:focus-visible { border-color: var(--b1); transform: translateY(-3px); }
-.ocard:hover .ocard-b { background: var(--b1); color: var(--k0); }
-.ocard:hover .ocard-b small, .ocard:hover .ocard-b p, .ocard:hover .ocard-b .mono { color: rgba(0,0,0,.65); }
-.ocard-w { position: absolute; right: 10px; top: 10px; font-size: 11px; padding: 2px 8px; background: rgba(0,0,0,.7); border: 1px solid var(--line-2); z-index: 1; }
+/* ---------- ORIGINS 궤도 배치 ---------- */
+.orbit { position: relative; width: min(760px, 100%, calc(100vh - 290px)); min-width: min(520px, 100%); aspect-ratio: 1; margin: 0 auto; }
+.orbit-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ob-ring { fill: none; stroke: var(--line-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ob-ring--dash { stroke: rgba(90,162,255,.3); stroke-dasharray: 2 8; transform-origin: 50px 50px; animation: spin 140s linear infinite; }
+.ob-ring--in { stroke: var(--b2); stroke-opacity: .5; }
+.ob-spokes line { stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.orbit-core { position: absolute; left: 50%; top: 50%; width: 44%; transform: translate(-50%, -50%); text-align: center; }
+.orbit-core .mono { font-size: 10px; color: var(--b1); letter-spacing: .2em; }
+.orbit-core h3 { font-family: var(--f-title); font-weight: 400; font-size: clamp(18px, 2vw, 24px); letter-spacing: .08em; line-height: 1.15; margin: 6px 0 4px; text-shadow: 0 0 18px var(--b-glow); }
+.orbit-ko { font-size: 14px; font-weight: 700; }
+.orbit-text { font-size: 11.5px; line-height: 1.65; color: var(--tx-2); margin-top: 8px; }
+.onode { position: absolute; width: 140px; transform: translate(-50%, -50%); }
+.onode-btn { display: block; width: 100%; text-align: center; padding: 10px 8px 12px; border: 1px solid transparent; transition: border-color .2s, background .2s; }
+.slot--round { width: 92px; margin: 0 auto; border-radius: 50%; border: 1px solid var(--line-3); box-shadow: 0 0 0 5px var(--k1), 0 0 0 6px var(--line); transition: border-color .2s, box-shadow .2s; }
+.slot--round::after { display: none; }
+.slot--round .slot-ph b { display: none; }
+.onode-n { display: block; margin-top: 12px; }
+.onode-n .mono { display: block; font-size: 9px; color: var(--tx-3); letter-spacing: .18em; }
+.onode-n b { display: block; font-size: 18px; font-weight: 800; line-height: 1.3; }
+.onode-n small { display: block; font-family: var(--f-mono); font-size: 10px; color: var(--b1); letter-spacing: .1em; }
+.onode-btn:hover, .onode-btn:focus-visible { border-color: var(--b1); background: var(--k4); }
+.onode-btn:hover .slot--round, .onode-btn:focus-visible .slot--round { border-color: var(--b1); box-shadow: 0 0 0 5px var(--k1), 0 0 0 6px var(--b2), 0 0 18px var(--b-glow); }
 
 /* =========================================================
    키프레임
@@ -938,10 +947,15 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .mk--r .mk-label { left: 20px; }
   .mk--l .mk-label { right: 20px; }
 
-  .win { inset: 0; border: 0; }
+  .win { inset: 0; width: auto; margin: 0; border: 0; }
   .hero, .region-top, .chapter, .protag, .aria, .grid-2, .grid-3, .stat-row { grid-template-columns: minmax(0, 1fr); }
   .chapter .ch-vis { max-width: 320px; }
   .omini { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .orbit { aspect-ratio: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .orbit-svg { display: none; }
+  .orbit-core { position: static; grid-column: 1 / -1; width: auto; transform: none; margin-bottom: 12px; }
+  .onode { position: static; width: auto; transform: none; }
+  .slot--round { width: 84px; }
   .grade { grid-template-columns: minmax(0, 1fr); }
   .grade-side { grid-column: auto; }
   .stages { grid-template-columns: minmax(0, 1fr); }
@@ -980,7 +994,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .omini { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .members { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ogrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .orbit { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bf-row { grid-template-columns: 96px 1fr; }
 }
 
