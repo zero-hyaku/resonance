@@ -960,6 +960,17 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .dossier .trial q { text-shadow: 0 0 18px rgba(var(--ac-rgb), .6); }
 .dossier .clog li::before { border-color: var(--ac); }
 
+/* 텍스트를 오른쪽에 두는 오리진 (인물이 왼쪽에 있는 배경) */
+.dossier--right .ds-scroll { left: auto; right: 0; }
+.dossier--right .ds-img img { object-position: 30% 30%; }
+.dossier--right .ds-mark { right: auto; left: -1vw; }
+.dossier--right .ds-shade {
+  background:
+    linear-gradient(270deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.86) 32%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.05) 80%),
+    linear-gradient(0deg, rgba(0,0,0,.7), transparent 30%),
+    linear-gradient(180deg, rgba(0,0,0,.7), transparent 18%),
+    linear-gradient(270deg, rgba(var(--ac-rgb), .14), transparent 40%);
+}
 @keyframes ds-drift { from { transform: scale(1.02) translateX(0); } to { transform: scale(1.06) translateX(-1.2%); } }
 @keyframes ds-flash { 0% { background-color: rgba(var(--ac-rgb), .5); } 50% { background-color: rgba(255,255,255,.15); } 100% { background-color: transparent; } }
 
@@ -1129,7 +1140,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .dossier { animation: crt-on .55s var(--ease) both; }
   .ds-scroll { width: 100%; padding: 120px 18px 48px; }
   .ds-facts { grid-template-columns: minmax(0, 1fr); }
-  .ds-shade { background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.82) 38%, rgba(0,0,0,.92) 100%), linear-gradient(90deg, rgba(var(--ac-rgb), .12), transparent 60%); }
+  .ds-shade, .dossier--right .ds-shade { background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.82) 38%, rgba(0,0,0,.92) 100%), linear-gradient(90deg, rgba(var(--ac-rgb), .12), transparent 60%); }
   .ds-top { flex-wrap: wrap; gap: 8px; padding: 12px 14px; }
   .ds-top-code { width: 100%; order: -1; }
   .ds-past { flex: 1; justify-content: center; padding: 7px 10px; }

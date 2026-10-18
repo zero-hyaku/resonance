@@ -733,7 +733,7 @@
     const bgNow = `${c.img}-bg|${c.img}`;
     const bgPast = `${c.img}-past-bg|${c.img}-past|${bgNow}`;
     const el = document.createElement('div');
-    el.className = 'pop pop--dossier dossier';
+    el.className = 'pop pop--dossier dossier' + (c.side === 'right' ? ' dossier--right' : '');
     el.dataset.pf = id;
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-modal', 'true');
