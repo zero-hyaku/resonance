@@ -950,8 +950,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .ds-name span { display: inline-block; }
 .ds-ko { font-size: clamp(20px, 2vw, 26px); font-weight: 800; }
 .ds-ko span { font-size: 14px; font-weight: 500; color: var(--tx-2); }
-.dossier .pf-basic { background: rgba(0,0,0,.35); border-top-color: rgba(var(--ac-rgb), .4); }
-.dossier .pf-basic div { border-bottom-color: rgba(255,255,255,.1); }
+.dossier .pf-basic { background: rgba(0,0,0,.62); border-top-color: rgba(var(--ac-rgb), .4); }
+.dossier .pf-basic dt { color: var(--tx-2); }
+.dossier .pf-basic div { border-bottom-color: rgba(255,255,255,.1); padding-left: 16px; }
 .dossier .pf-sec h5 { color: var(--ac); }
 .dossier .pf-sec p { text-shadow: 0 1px 2px rgba(0,0,0,.8); }
 .dossier .ability { background: rgba(var(--ac-rgb), .1); border-color: rgba(var(--ac-rgb), .6); }
