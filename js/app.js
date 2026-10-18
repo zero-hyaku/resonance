@@ -767,6 +767,8 @@
     el.classList.toggle('is-past', past);
     el.classList.remove('is-flash'); void el.offsetWidth; el.classList.add('is-flash');
     renderDossier(el, id, past, false, true);
+    const c = ch(id), side = past ? (c.pastSide || c.side) : c.side;
+    el.classList.toggle('dossier--right', side === 'right');
     $('.ds-past b', el).textContent = past ? '◂ 현재 기록으로 돌아가기' : '초월자 시절 기록 열람 ▸';
     $('.ds-past .mono', el).textContent = past ? 'RETURN' : 'SPOILER';
     $('.ds-mark', el).textContent = (past ? ch(id).past.trueEn : ch(id).en).toUpperCase();

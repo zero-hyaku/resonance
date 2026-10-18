@@ -409,7 +409,7 @@ window.RES = (function () {
       }
     },
     sis: {
-      kind: 'origin', color: '#ffd23f', side: 'right', name: '시스', en: 'Sis', weapon: '활', value: '자유',
+      kind: 'origin', color: '#ffd23f', side: 'right', pastSide: 'left', name: '시스', en: 'Sis', weapon: '활', value: '자유',
       grade: '오리진', body: '아이언 밸리, 녹음의 협곡', affiliation: '무소속 · 강철의 송곳니와 동행',
       awaken: '약 R.E. 3006 (가장 최근에 깨어난 오리진)', contracts: '없음',
       img: 'assets/img/characters/sis',
