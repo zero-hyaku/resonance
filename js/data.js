@@ -354,7 +354,7 @@ window.RES = (function () {
   const characters = {
     /* ===== 오리진 ===== */
     just: {
-      kind: 'origin', name: '유스트', en: 'Just', weapon: '검', value: '정의',
+      kind: 'origin', color: '#4fd88a', name: '유스트', en: 'Just', weapon: '검', value: '정의',
       position: '특무지휘관', grade: '오리진', body: '에이레네 북쪽 끝, 판결의 극', affiliation: '중앙집행국',
       awaken: '약 R.E. 2400 (첫 오리진 각성)', contracts: '총 4회 (지휘자 전원 사망)',
       img: 'assets/img/characters/just',
@@ -376,7 +376,7 @@ window.RES = (function () {
       }
     },
     moss: {
-      kind: 'origin', name: '모스', en: 'Moss', weapon: '낫', value: '안식',
+      kind: 'origin', color: '#a77bff', name: '모스', en: 'Moss', weapon: '낫', value: '안식',
       position: '특무감찰관', grade: '오리진', body: '에이레네 남쪽 끝, 안식의 극', affiliation: '중앙집행국',
       awaken: '약 R.E. 2400 (첫 오리진 각성)', contracts: '오리진 중 가장 많음 (정확한 기록 확인 불가)',
       img: 'assets/img/characters/moss',
@@ -392,7 +392,7 @@ window.RES = (function () {
       }
     },
     chan: {
-      kind: 'origin', name: '칸', en: 'Chan', weapon: '대검', value: '유대',
+      kind: 'origin', color: '#ff4d4d', name: '칸', en: 'Chan', weapon: '대검', value: '유대',
       position: '명예 고문', grade: '오리진', body: '아이언 밸리, 녹음의 협곡', affiliation: '강철의 송곳니',
       awaken: '약 R.E. 2500', contracts: '없음 (본인이 거부)',
       img: 'assets/img/characters/chan',
@@ -409,7 +409,7 @@ window.RES = (function () {
       }
     },
     sis: {
-      kind: 'origin', name: '시스', en: 'Sis', weapon: '활', value: '자유',
+      kind: 'origin', color: '#ffd23f', name: '시스', en: 'Sis', weapon: '활', value: '자유',
       grade: '오리진', body: '아이언 밸리, 녹음의 협곡', affiliation: '무소속 · 강철의 송곳니와 동행',
       awaken: '약 R.E. 3006 (가장 최근에 깨어난 오리진)', contracts: '없음',
       img: 'assets/img/characters/sis',
@@ -425,7 +425,7 @@ window.RES = (function () {
       }
     },
     kaien: {
-      kind: 'origin', name: '카이엔', en: 'Kaien', weapon: '창', value: '지배',
+      kind: 'origin', color: '#3d8bff', name: '카이엔', en: 'Kaien', weapon: '창', value: '지배',
       position: '교단의 신', grade: '오리진', body: '루미나 먼 바다의 심해 구멍 (창끝 해역)', affiliation: '성궤교단',
       awaken: '약 R.E. 2950', contracts: '없음',
       img: 'assets/img/characters/kaien',
@@ -441,7 +441,7 @@ window.RES = (function () {
       }
     },
     mary: {
-      kind: 'origin', name: '메리', en: 'Mary', weapon: '도끼', value: '투쟁',
+      kind: 'origin', color: '#ff6fb5', name: '메리', en: 'Mary', weapon: '도끼', value: '투쟁',
       position: '교단의 신', grade: '오리진', body: '루미나 성궤 신전 정중앙, 투신의 성소', affiliation: '성궤교단',
       awaken: 'R.E. 3005', contracts: '없음',
       img: 'assets/img/characters/mary',

@@ -853,6 +853,92 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .trial p { font-size: 14px; line-height: 1.95; color: var(--tx-2); margin: 16px auto 0; max-width: 56ch; font-style: italic; }
 .trial q { display: block; margin-top: 22px; font-size: 22px; font-weight: 800; color: #fff; quotes: '「' '」'; }
 
+/* ---------- 오리진 상세 — 전체 화면 도시에 ---------- */
+.dossier {
+  /* 오리진 대표색이 기존 블루 포인트를 대신한다 */
+  --b1: var(--ac); --b2: var(--ac); --b3: var(--ac);
+  --b-glow: rgba(var(--ac-rgb), .4); --b-wash: rgba(var(--ac-rgb), .1);
+  position: fixed; inset: 0; left: 0; top: 0; width: auto; height: auto; max-height: none;
+  transform: none; border: 0; background: #000; overflow: hidden;
+  display: block; box-shadow: none;
+  animation: crt-on .75s var(--ease) both;
+}
+.dossier.is-off { animation: crt-off .32s cubic-bezier(.6,0,.9,.4) both; }
+.dossier::before, .dossier::after { display: none; }
+
+.ds-bg { position: absolute; inset: 0; transition: opacity .9s var(--ease), transform 1.4s var(--ease), filter .9s; }
+.ds-bg--past { opacity: 0; transform: scale(1.04); filter: saturate(.6) contrast(1.1); }
+.dossier.is-past .ds-bg--now { opacity: 0; transform: scale(1.04); }
+.dossier.is-past .ds-bg--past { opacity: 1; transform: none; }
+.ds-img { position: absolute; inset: 0; margin: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 72% 45%, rgba(var(--ac-rgb), .28), transparent 70%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 12px),
+    #050505; }
+.ds-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 30%; opacity: 0; transition: opacity .8s; animation: ds-drift 30s ease-in-out infinite alternate; }
+.ds-img.has-img img { opacity: 1; }
+.ds-mark {
+  position: absolute; right: -1vw; bottom: -4vh; z-index: 1; pointer-events: none;
+  font-family: var(--f-title); font-size: clamp(90px, 17vw, 300px); line-height: .85; letter-spacing: .02em;
+  color: transparent; -webkit-text-stroke: 1px rgba(var(--ac-rgb), .35);
+  white-space: nowrap;
+}
+.ds-shade {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.86) 32%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.05) 80%),
+    linear-gradient(0deg, rgba(0,0,0,.7), transparent 30%),
+    linear-gradient(180deg, rgba(0,0,0,.7), transparent 18%),
+    linear-gradient(90deg, rgba(var(--ac-rgb), .14), transparent 40%);
+}
+.ds-shade::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0 1px, transparent 1px 3px); }
+.dossier.is-flash .ds-shade { animation: ds-flash .6s steps(3) both; }
+
+.ds-top {
+  position: absolute; left: 0; right: 0; top: 0; z-index: 3;
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px clamp(16px, 3vw, 40px);
+  border-bottom: 1px solid rgba(var(--ac-rgb), .3);
+  background: linear-gradient(180deg, rgba(0,0,0,.6), transparent);
+}
+.ds-top-code { font-size: 11px; color: var(--tx-2); margin-right: auto; display: flex; align-items: center; gap: 10px; }
+.ds-top-code i { width: 8px; height: 8px; background: var(--ac); box-shadow: 0 0 10px var(--ac); }
+.ds-past {
+  display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px;
+  border: 1px solid rgba(var(--ac-rgb), .7); background: rgba(var(--ac-rgb), .1);
+  font-size: 13px; transition: background .2s, box-shadow .2s;
+}
+.ds-past .mono { font-size: 10px; letter-spacing: .2em; color: var(--ac); }
+.ds-past b { font-weight: 600; }
+.ds-past:hover { background: rgba(var(--ac-rgb), .25); box-shadow: 0 0 22px rgba(var(--ac-rgb), .45); }
+.dossier.is-past .ds-past { background: var(--ac); color: #000; }
+.dossier.is-past .ds-past .mono { color: rgba(0,0,0,.6); }
+.ds-top .x-btn { margin-left: 0; background: rgba(0,0,0,.4); }
+.ds-top .x-btn:hover { background: var(--ac); border-color: var(--ac); color: #000; }
+
+.ds-scroll { position: absolute; z-index: 2; top: 0; bottom: 0; left: 0; width: min(780px, 56vw); overflow-y: auto; padding: 96px clamp(20px, 4vw, 64px) 64px; }
+.ds-hero { margin-bottom: 30px; }
+.ds-code { font-size: 11px; color: var(--ac); letter-spacing: .2em; }
+.ds-name {
+  font-family: var(--f-title); font-weight: 400; font-size: clamp(48px, 7.4vw, 112px);
+  line-height: 1; letter-spacing: .04em; margin: 12px 0 10px; color: #fff;
+  text-shadow: 0 0 18px rgba(var(--ac-rgb), .7), 0 0 60px rgba(var(--ac-rgb), .35);
+}
+.ds-ko { font-size: clamp(20px, 2vw, 26px); font-weight: 800; }
+.ds-ko span { font-size: 14px; font-weight: 500; color: var(--tx-2); }
+.dossier .pf-basic { background: rgba(0,0,0,.35); border-top-color: rgba(var(--ac-rgb), .4); }
+.dossier .pf-basic div { border-bottom-color: rgba(255,255,255,.1); }
+.dossier .pf-sec h5 { color: var(--ac); }
+.dossier .pf-sec p { text-shadow: 0 1px 2px rgba(0,0,0,.8); }
+.dossier .ability { background: rgba(var(--ac-rgb), .1); border-color: rgba(var(--ac-rgb), .6); }
+.dossier .ability b { background: var(--ac); color: #000; }
+.dossier .trial { background: radial-gradient(ellipse at 50% 0%, rgba(var(--ac-rgb), .15), transparent 70%), rgba(0,0,0,.6); border-color: rgba(var(--ac-rgb), .5); }
+.dossier .trial q { text-shadow: 0 0 18px rgba(var(--ac-rgb), .6); }
+.dossier .clog li::before { border-color: var(--ac); }
+
+@keyframes ds-drift { from { transform: scale(1.02) translateX(0); } to { transform: scale(1.06) translateX(-1.2%); } }
+@keyframes ds-flash { 0% { background-color: rgba(var(--ac-rgb), .5); } 50% { background-color: rgba(255,255,255,.15); } 100% { background-color: transparent; } }
+
 /* ---------- ORIGINS 궤도 배치 ---------- */
 .orbit-wrap { min-height: 100%; display: grid; place-items: center; }
 .orbit { --ob: clamp(108px, 12.8vh, 138px); position: relative; width: min(100%, clamp(520px, calc(100vh - 420px), 820px)); aspect-ratio: 1; margin: 76px auto; }
@@ -1016,6 +1102,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .pop--profile { width: 100vw; height: 100%; max-height: none; top: 0; left: 0; transform: none; animation: crt-on .55s var(--ease) both; }
   .pop--profile.is-off { animation: crt-off .3s both; }
   .pop--profile .pop-body { overflow-y: auto; display: block; }
+  .dossier { animation: crt-on .55s var(--ease) both; }
+  .ds-scroll { width: 100%; padding: 120px 18px 48px; }
+  .ds-shade { background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.82) 38%, rgba(0,0,0,.92) 100%), linear-gradient(90deg, rgba(var(--ac-rgb), .12), transparent 60%); }
+  .ds-top { flex-wrap: wrap; gap: 8px; padding: 12px 14px; }
+  .ds-top-code { width: 100%; order: -1; }
+  .ds-past { flex: 1; justify-content: center; padding: 7px 10px; }
+  .ds-mark { font-size: 26vw; bottom: auto; top: 30vh; }
   .profile { grid-template-columns: minmax(0, 1fr); }
   .pf-left { border-right: 0; border-bottom: 1px solid var(--line); overflow: visible; }
   .pf-left .slot { max-width: 260px; }

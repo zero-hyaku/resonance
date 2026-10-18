@@ -591,7 +591,7 @@
     const el = popStack.pop();
     if (!el) return;
     S.sfx('close');
-    if (el.classList.contains('pop--profile')) S.leaveOrigin();
+    if (el.classList.contains('pop--profile') || el.classList.contains('dossier')) S.leaveOrigin();
     el.classList.add('is-off');
     setTimeout(() => { el.remove(); if (!popStack.length) popLayer.classList.remove('has-pop'); }, reduceMotion ? 0 : 300);
     if (!popStack.length && !cur) globe && globe.pause(false);
@@ -676,8 +676,81 @@
       <div class="pf-left">${profileLeft(id, past)}</div>
       <div class="pf-right">${past ? profilePast(id) : profileNow(id)}</div></div>`;
   }
+  /* ---------- 오리진 상세 — 전체 화면 ---------- */
+  const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)).join(',');
+  function dossierBody(id, past) {
+    const c = ch(id);
+    const idx = R.originOrder.indexOf(id) + 1;
+    if (past) {
+      const P = c.past;
+      return `
+        <div class="ds-hero rv">
+          <span class="ds-code mono">CLASSIFIED // BEYONDER RECORD · ORIGIN 0${idx}</span>
+          <h2 class="ds-name" data-scr>${esc(P.trueEn.toUpperCase())}</h2>
+          <p class="ds-ko">${esc(P.trueName)} <span>— ${esc(P.title)}</span></p>
+        </div>
+        <section class="pf-sec rv"><h5>과거<span>BEFORE THE SILENCE</span></h5><p>${esc(P.text)}</p></section>
+        <section class="pf-sec rv"><h5>시련<span>TRIAL</span></h5>
+          <div class="trial"><span class="mono">TRIAL OF ${esc(P.trueEn.toUpperCase())}</span><h6>${esc(P.trial.name)}</h6><small>${esc(P.trial.en.toUpperCase())}</small>
+            <p>${esc(P.trial.text)}</p><q>${esc(P.trial.question)}</q></div></section>`;
+    }
+    return `
+      <div class="ds-hero rv">
+        <span class="ds-code mono">ORIGIN 0${idx} // VESSEL : ${esc(c.weapon)}</span>
+        <h2 class="ds-name">${esc(c.en.toUpperCase())}</h2>
+        <p class="ds-ko">${esc(c.name)} <span>— ${esc(c.affiliation)}${c.position ? ' · ' + esc(c.position) : ''}</span></p>
+      </div>
+      ${profileNow(id)}`;
+  }
+  function openDossier(id) {
+    const c = ch(id);
+    const bgNow = `${c.img}-bg|${c.img}`;
+    const bgPast = `${c.img}-past-bg|${c.img}-past|${bgNow}`;
+    const el = document.createElement('div');
+    el.className = 'pop pop--dossier dossier';
+    el.dataset.pf = id;
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('aria-label', `${c.name} 프로필`);
+    el.style.setProperty('--ac', c.color);
+    el.style.setProperty('--ac-rgb', hexRgb(c.color));
+    el.innerHTML = `
+      <div class="ds-bg ds-bg--now"><figure class="ds-img" data-img="${esc(bgNow)}" data-alt="${esc(c.en)}"></figure></div>
+      <div class="ds-bg ds-bg--past"><figure class="ds-img" data-img="${esc(bgPast)}" data-alt="${esc(c.past.trueEn)}"></figure></div>
+      <div class="ds-mark" aria-hidden="true">${esc(c.en.toUpperCase())}</div>
+      <div class="ds-shade" aria-hidden="true"></div>
+      <header class="ds-top">
+        <span class="ds-top-code mono"><i></i>PERSONNEL FILE // ORIGIN // ${esc(c.en.toUpperCase())}</span>
+        <button type="button" class="ds-past" data-past="${id}"><span class="mono">SPOILER</span><b>초월자 시절 기록 열람 ▸</b></button>
+        <button type="button" class="x-btn" data-pop-close>✕ CLOSE</button>
+      </header>
+      <div class="ds-scroll"><div class="ds-body">${dossierBody(id, false)}</div></div>`;
+    popLayer.appendChild(el);
+    popLayer.classList.add('has-pop');
+    popStack.push(el);
+    S.sfx('open');
+    hydrate(el); stagger(el);
+    globe && globe.pause(true);
+    setTimeout(() => $('[data-pop-close]', el).focus({ preventScroll: true }), 50);
+  }
+  function toggleDossier(el, id) {
+    const past = !el.classList.contains('is-past');
+    S.sfx('reveal');
+    el.classList.toggle('is-past', past);
+    el.classList.remove('is-flash'); void el.offsetWidth; el.classList.add('is-flash');
+    const body = $('.ds-body', el);
+    body.innerHTML = dossierBody(id, past);
+    $('.ds-scroll', el).scrollTop = 0;
+    $('.ds-past b', el).textContent = past ? '◂ 현재 기록으로 돌아가기' : '초월자 시절 기록 열람 ▸';
+    $('.ds-past .mono', el).textContent = past ? 'RETURN' : 'SPOILER';
+    $('.ds-mark', el).textContent = (past ? ch(id).past.trueEn : ch(id).en).toUpperCase();
+    stagger(body);
+    if (past) scramble($('.ds-name', body), ch(id).past.trueEn.toUpperCase(), 900);
+  }
+
   function openProfile(id) {
     if (ch(id).kind === 'origin') S.enterOrigin(id); else S.leaveOrigin();
+    if (ch(id).kind === 'origin') { openDossier(id); return; }
     const top = popStack[popStack.length - 1];
     const code = c => `PERSONNEL FILE // ${c.en.toUpperCase()}`;
     if (top && top.classList.contains('pop--profile')) {
@@ -696,6 +769,7 @@
   function togglePast(id) {
     const pf = $(`[data-pf="${id}"]`);
     if (!pf) return;
+    if (pf.classList.contains('dossier')) { toggleDossier(pf, id); return; }
     const past = !pf.classList.contains('is-past');
     S.sfx('reveal');
     pf.classList.toggle('is-past', past);

@@ -15,7 +15,15 @@
 | 요약 슬롯 | `assets/img/characters/just-thumb.png` |
 | 상세 화면 | `assets/img/characters/just.png` |
 
-오리진 프로필의 초월자 시절 화면은 `-past`(예: `just-past.png`)를 먼저 찾고, 없으면 기본 이미지를 씁니다.
+### 오리진 상세 프로필 (전체 화면 배경)
+오리진 프로필은 화면 전체를 채우는 배경 이미지 위에 글이 겹쳐지는 구조입니다. 글은 왼쪽에 놓이니 **인물은 오른쪽**에 오는 가로형 이미지(16:9 이상)가 잘 어울립니다.
+
+| 화면 | 찾는 순서 |
+| --- | --- |
+| 현재 기록 | `just-bg` → `just` |
+| 초월자 시절 기록 | `just-past-bg` → `just-past` → 현재 기록 배경 |
+
+예) `assets/img/characters/just-bg.jpg`, `assets/img/characters/just-past-bg.jpg`
 
 ## 행성 지도 (선택)
 - `assets/img/map/vertum` — 행성 텍스처를 직접 그린 지도로 바꾸고 싶을 때. **등장방형(가로:세로 = 2:1)** 이미지여야 합니다.
