@@ -722,7 +722,7 @@
     const d = t.dataset;
     if (d.open) openWindow(d.open);
     else if (d.openWin) openWindow(d.openWin);
-    else if (d.tab) { S.sfx('click'); switchTab(d.tab); }
+    else if (d.tab) switchTab(d.tab);
     else if ('close' in d) closeWindow();
     else if ('popClose' in d) closePop();
     else if (d.zone) openZone(d.zone);
@@ -731,7 +731,6 @@
     else if (d.reveal) revealSpoiler(d.reveal);
     else if (d.past) togglePast(d.past);
     else if (d.tl) {
-      S.sfx('click');
       const item = $('#tl-' + d.tl);
       if (item) {
         item.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
@@ -864,15 +863,20 @@
       $('[data-globe-loading]').textContent = 'PLANETARY MODEL OFFLINE — WebGL 미지원';
     }
   }
-  $$('[data-zoom]').forEach(b => b.addEventListener('click', () => { S.sfx('click'); globe && globe.zoom(parseFloat(b.dataset.zoom)); }));
-  $('[data-reset]').addEventListener('click', () => { S.sfx('click'); globe && globe.reset(); });
-  $$('[data-filter]').forEach(cb => cb.addEventListener('change', () => { S.sfx('click'); globe && globe.setFilter(cb.dataset.filter, cb.checked); }));
+  $$('[data-zoom]').forEach(b => b.addEventListener('click', () => globe && globe.zoom(parseFloat(b.dataset.zoom))));
+  $('[data-reset]').addEventListener('click', () => globe && globe.reset());
+  $$('[data-filter]').forEach(cb => cb.addEventListener('change', () => globe && globe.setFilter(cb.dataset.filter, cb.checked)));
 
   // 사운드 토글
   const soundBtn = $('[data-sound]');
   const paintSound = on => { soundBtn.classList.toggle('is-off', !on); soundBtn.setAttribute('aria-pressed', on); $('b', soundBtn).textContent = on ? 'ON' : 'OFF'; };
   paintSound(S.enabled);
-  soundBtn.addEventListener('click', () => { const on = S.toggle(); paintSound(on); if (on) S.sfx('click'); });
+  soundBtn.addEventListener('click', () => paintSound(S.toggle()));
+
+  // 클릭음 — 화면의 모든 버튼·체크박스·마커
+  document.addEventListener('click', e => {
+    if (e.target.closest('button, label, a[href], .mk')) S.sfx('click');
+  }, true);
 
   // 커서를 올릴 때 (메뉴 · 마커)
   document.addEventListener('mouseover', e => {

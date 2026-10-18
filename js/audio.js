@@ -123,8 +123,12 @@ window.Sound = (function () {
   /* ---------- 효과음 ---------- */
   const sfxCache = {};
   const missing = new Set();
+  const lastPlay = {};
   function sfx(name) {
     if (!enabled || !unlocked) return;
+    const now = performance.now();
+    if (now - (lastPlay[name] || 0) < 50) return; // 같은 소리가 한 번의 동작에 겹치지 않게
+    lastPlay[name] = now;
     const def = (CFG.sfx || {})[name];
     if (!def || !def.src || missing.has(name)) return;
     let base = sfxCache[name];
