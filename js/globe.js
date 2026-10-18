@@ -94,11 +94,11 @@ window.Globe = (function () {
     const sea = ctx.createRadialGradient(532, 730, 10, 532, 730, 220);
     sea.addColorStop(0, 'rgba(110,190,255,0.32)');
     sea.addColorStop(1, 'rgba(110,190,255,0)');
-    ctx.fillStyle = sea; ctx.fillRect(250, 520, 600, 320);
+    ctx.fillStyle = sea; ctx.fillRect(532 - 220, 730 - 220, 440, 440);
     const sea2 = ctx.createRadialGradient(724, 790, 2, 724, 790, 60);
     sea2.addColorStop(0, 'rgba(140,210,255,0.5)');
     sea2.addColorStop(1, 'rgba(140,210,255,0)');
-    ctx.fillStyle = sea2; ctx.fillRect(640, 720, 170, 140);
+    ctx.fillStyle = sea2; ctx.fillRect(724 - 60, 790 - 60, 120, 120);
 
     // 해안 글로우
     ctx.strokeStyle = 'rgba(80,150,255,0.10)'; ctx.lineWidth = 9;
@@ -488,8 +488,18 @@ window.Globe = (function () {
       W = Math.max(1, r.width); H = Math.max(1, r.height);
       renderer.setSize(W, H, false);
       camera.aspect = W / H;
-      // 좁은 화면에서 구체가 잘리지 않게
-      camera.fov = W < H ? 32 * Math.min(1.7, H / W * 0.85) : 32;
+      const f = opts.frame && opts.frame.getBoundingClientRect();
+      if (f && (f.width < W - 1 || f.height < H - 1)) {
+        // 캔버스가 화면 전체일 때: 구체 크기는 프레임 기준으로 유지, 중심은 프레임 중앙으로 이동
+        const t = Math.tan(16 * Math.PI / 180) * H / Math.min(f.width, f.height);
+        camera.fov = 2 * Math.atan(t) * 180 / Math.PI;
+        const cx = f.left + f.width / 2 - r.left, cy = f.top + f.height / 2 - r.top;
+        camera.setViewOffset(W, H, W / 2 - cx, H / 2 - cy, W, H);
+      } else {
+        camera.clearViewOffset();
+        // 좁은 화면에서 구체가 잘리지 않게
+        camera.fov = W < H ? 32 * Math.min(1.7, H / W * 0.85) : 32;
+      }
       camera.updateProjectionMatrix();
     }
     window.addEventListener('resize', resize);

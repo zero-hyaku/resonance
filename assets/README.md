@@ -6,6 +6,17 @@
 
 예) 유스트 프로필 → `assets/img/characters/just.png`
 
+### 썸네일과 상세 이미지 나누기
+요약 슬롯(구역 카드, 기관 구성원, 인물 카드, 오리진 원형 슬롯)은 **파일 이름 뒤에 `-thumb`** 를 붙인 이미지를 먼저 찾습니다.
+없으면 기본 이미지를 그대로 씁니다. 상세 화면(구역 팝업, 프로필 팝업)은 항상 기본 이미지를 씁니다.
+
+| 쓰는 곳 | 파일 |
+| --- | --- |
+| 요약 슬롯 | `assets/img/characters/just-thumb.png` |
+| 상세 화면 | `assets/img/characters/just.png` |
+
+오리진 프로필의 초월자 시절 화면은 `-past`(예: `just-past.png`)를 먼저 찾고, 없으면 기본 이미지를 씁니다.
+
 ## 행성 지도 (선택)
 - `assets/img/map/vertum` — 행성 텍스처를 직접 그린 지도로 바꾸고 싶을 때. **등장방형(가로:세로 = 2:1)** 이미지여야 합니다.
   넣지 않으면 코드로 그린 기본 지도가 쓰입니다. 교체해도 마커 위치는 `js/data.js`의 `markers` 좌표를 따르므로 맞춰 조정해야 합니다.
@@ -49,12 +60,12 @@
 - `assets/img/factions/ark` — 성궤교단
 
 ## 인물 프로필 (세로형 3:4)
-- `assets/img/characters/just` — 유스트 (스포일러 시절 이미지: `assets/img/characters/just-past`, 없으면 기본 이미지 사용)
-- `assets/img/characters/moss` — 모스 (스포일러 시절 이미지: `assets/img/characters/moss-past`, 없으면 기본 이미지 사용)
-- `assets/img/characters/chan` — 칸 (스포일러 시절 이미지: `assets/img/characters/chan-past`, 없으면 기본 이미지 사용)
-- `assets/img/characters/sis` — 시스 (스포일러 시절 이미지: `assets/img/characters/sis-past`, 없으면 기본 이미지 사용)
-- `assets/img/characters/kaien` — 카이엔 (스포일러 시절 이미지: `assets/img/characters/kaien-past`, 없으면 기본 이미지 사용)
-- `assets/img/characters/mary` — 메리 (스포일러 시절 이미지: `assets/img/characters/mary-past`, 없으면 기본 이미지 사용)
+- `assets/img/characters/just` — 유스트 (초월자 시절: `assets/img/characters/just-past`, 없으면 기본 이미지 사용)
+- `assets/img/characters/moss` — 모스 (초월자 시절: `assets/img/characters/moss-past`, 없으면 기본 이미지 사용)
+- `assets/img/characters/chan` — 칸 (초월자 시절: `assets/img/characters/chan-past`, 없으면 기본 이미지 사용)
+- `assets/img/characters/sis` — 시스 (초월자 시절: `assets/img/characters/sis-past`, 없으면 기본 이미지 사용)
+- `assets/img/characters/kaien` — 카이엔 (초월자 시절: `assets/img/characters/kaien-past`, 없으면 기본 이미지 사용)
+- `assets/img/characters/mary` — 메리 (초월자 시절: `assets/img/characters/mary-past`, 없으면 기본 이미지 사용)
 - `assets/img/characters/hazard` — 해저드
 - `assets/img/characters/odette` — 오데트
 - `assets/img/characters/soil` — 소일

@@ -49,6 +49,7 @@
       }
     });
   }
+  const thumb = base => `${base}-thumb|${base}`;
   function slot(base, shape, label, extra) {
     return `<figure class="slot slot--${shape} ${extra || ''}" data-img="${esc(base)}" data-alt="${esc(label)}">
       <figcaption class="slot-ph"><b>${esc(label)}</b><span>IMAGE SLOT</span></figcaption></figure>`;
@@ -248,7 +249,7 @@
         <section class="sec">${secH('여섯 기둥', 'THE SIX')}
           <div class="omini">${R.originOrder.map(id => {
             const c = ch(id);
-            return `<button type="button" class="rv" data-profile="${id}">${slot(c.img, 'portrait', c.en)}<span>${esc(c.name)}</span><small>${esc(c.weapon)} · ${esc(c.affiliation.split(' ')[0])}</small></button>`;
+            return `<button type="button" class="rv" data-profile="${id}">${slot(thumb(c.img), 'portrait', c.en)}<span>${esc(c.name)}</span><small>${esc(c.weapon)} · ${esc(c.affiliation.split(' ')[0])}</small></button>`;
           }).join('')}</div>
         </section>`;
     }
@@ -346,7 +347,7 @@
   function zoneGrid(prefix, zones) {
     return `<div class="zones">${zones.map(z => `
       <button type="button" class="zone rv" data-zone="${prefix}/${z.id}">
-        ${slot(`assets/img/zones/${prefix}-${z.id}`, 'card', z.en)}
+        ${slot(thumb(`assets/img/zones/${prefix}-${z.id}`), 'card', z.en)}
         <span class="zone-n"><b>${esc(z.name)}</b><small>${esc(z.tag || '')}</small></span>
       </button>`).join('')}</div>`;
   }
@@ -410,7 +411,7 @@
   function memberCard(id) {
     const c = ch(id);
     return `<button type="button" class="member rv ${c.kind === 'origin' ? 'member--origin' : ''}" data-profile="${id}">
-      ${slot(c.img, 'portrait', c.en)}
+      ${slot(thumb(c.img), 'portrait', c.en)}
       <span class="member-n"><b>${esc(c.name)}</b><small>${esc(memberRole(c))}</small></span></button>`;
   }
   function renderFaction(id) {
@@ -448,32 +449,34 @@
     const ang = i => (i / n) * Math.PI * 2 - Math.PI / 2;
     const spokes = R.originOrder.map((_, i) => {
       const a = ang(i);
-      return `<line x1="${(50 + Math.cos(a) * 28).toFixed(2)}" y1="${(50 + Math.sin(a) * 28).toFixed(2)}" x2="${(50 + Math.cos(a) * 32).toFixed(2)}" y2="${(50 + Math.sin(a) * 32).toFixed(2)}"/>`;
+      return `<line x1="${(50 + Math.cos(a) * 25).toFixed(2)}" y1="${(50 + Math.sin(a) * 25).toFixed(2)}" x2="${(50 + Math.cos(a) * 27.5).toFixed(2)}" y2="${(50 + Math.sin(a) * 27.5).toFixed(2)}"/>`;
     }).join('');
     const nodes = R.originOrder.map((id, i) => {
       const c = ch(id), a = ang(i);
-      return `<div class="onode" style="left:${(50 + Math.cos(a) * 40).toFixed(2)}%;top:${(50 + Math.sin(a) * 40).toFixed(2)}%">
+      return `<div class="onode ${i === 0 ? 'onode--top' : ''}" style="left:${(50 + Math.cos(a) * 41).toFixed(2)}%;top:${(50 + Math.sin(a) * 41).toFixed(2)}%">
         <button type="button" class="onode-btn rv" data-profile="${id}">
-          ${slot(c.img, 'square', c.en, 'slot--round')}
+          ${slot(thumb(c.img), 'square', c.en, 'slot--round')}
           <span class="onode-n"><span class="mono">ORIGIN 0${i + 1}</span><b>${esc(c.name)}</b><small>${esc(c.en.toUpperCase())} · ${esc(c.weapon)}</small></span>
         </button></div>`;
     }).join('');
     return `
-      <div class="orbit">
+      <div class="orbit-wrap"><div class="orbit">
+        <div class="orbit-glow" aria-hidden="true"></div>
         <svg class="orbit-svg" viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="50" r="40" class="ob-ring"/>
+          <circle cx="50" cy="50" r="41" class="ob-ring"/>
           <circle cx="50" cy="50" r="47" class="ob-ring ob-ring--dash"/>
-          <circle cx="50" cy="50" r="27" class="ob-ring ob-ring--in"/>
+          <circle cx="50" cy="50" r="25" class="ob-ring ob-ring--in"/>
+          <circle cx="50" cy="50" r="25" class="ob-ring ob-ring--in-glow"/>
           <g class="ob-spokes">${spokes}</g>
         </svg>
         <div class="orbit-core"><div class="rv">
           <span class="mono">AXIS OF THE WORLD</span>
           <h3>THE SIX<br>ORIGINS</h3>
           <p class="orbit-ko">세계를 지탱하는 여섯 기둥</p>
-          <p class="orbit-text">${esc(R.originConcept.text)}</p>
+          <p class="orbit-text">${esc(R.originConcept.text.split('. ').slice(0, 2).join('. '))}</p>
         </div></div>
         ${nodes}
-      </div>`;
+      </div></div>`;
   }
   function renderPersonnel() {
     const pairs = R.factions.map(f => {
@@ -830,6 +833,7 @@
     try {
       globe = window.Globe.create({
         host: $('[data-globe]'),
+        frame: $('[data-globe-frame]'),
         markerLayer: $('[data-markers]'),
         renderMarker,
         onHot: updateSide,
