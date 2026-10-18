@@ -8,6 +8,7 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const S = window.Sound || { sfx() {}, start() {}, enterOrigin() {}, leaveOrigin() {}, toggle() { return false; }, enabled: false };
 
   const regionById = id => R.regions.find(r => r.id === id);
   const factionById = id => R.factions.find(f => f.id === id);
@@ -94,6 +95,7 @@
   function revealSpoiler(id) {
     const box = $(`[data-spoiler="${id}"]`);
     if (!box || box.classList.contains('is-open')) return;
+    S.sfx('reveal');
     box.classList.add('is-open');
     $('.spoiler-btn', box).remove();
     $('.spoiler-h .mono', box).textContent = 'DECLASSIFIED';
@@ -517,6 +519,7 @@
     tab = tab || (def.tabs ? def.tabs[0][0] : null);
     if (cur && cur.key === key) { if (tab !== cur.tab) switchTab(tab); return; }
     if (cur) cur.el.remove();
+    S.sfx('open');
 
     const el = document.createElement('section');
     el.className = 'win';
@@ -560,6 +563,7 @@
     if (!cur) return;
     const el = cur.el;
     cur = null;
+    S.sfx('close');
     el.classList.add('is-off');
     $$('.menu [data-open]').forEach(b => b.classList.remove('is-active'));
     setTimeout(() => { el.remove(); if (!cur) winLayer.classList.remove('has-win'); }, reduceMotion ? 0 : 320);
@@ -577,6 +581,7 @@
     popLayer.appendChild(el);
     popLayer.classList.add('has-pop');
     popStack.push(el);
+    S.sfx('open');
     hydrate(el);
     globe && globe.pause(true);
     setTimeout(() => $('[data-pop-close]', el).focus({ preventScroll: true }), 50);
@@ -585,6 +590,8 @@
   function closePop() {
     const el = popStack.pop();
     if (!el) return;
+    S.sfx('close');
+    if (el.classList.contains('pop--profile')) S.leaveOrigin();
     el.classList.add('is-off');
     setTimeout(() => { el.remove(); if (!popStack.length) popLayer.classList.remove('has-pop'); }, reduceMotion ? 0 : 300);
     if (!popStack.length && !cur) globe && globe.pause(false);
@@ -670,6 +677,7 @@
       <div class="pf-right">${past ? profilePast(id) : profileNow(id)}</div></div>`;
   }
   function openProfile(id) {
+    if (ch(id).kind === 'origin') S.enterOrigin(id); else S.leaveOrigin();
     const top = popStack[popStack.length - 1];
     const code = c => `PERSONNEL FILE // ${c.en.toUpperCase()}`;
     if (top && top.classList.contains('pop--profile')) {
@@ -689,6 +697,7 @@
     const pf = $(`[data-pf="${id}"]`);
     if (!pf) return;
     const past = !pf.classList.contains('is-past');
+    S.sfx('reveal');
     pf.classList.toggle('is-past', past);
     $('.pf-left', pf).innerHTML = profileLeft(id, past);
     const right = $('.pf-right', pf);
@@ -713,7 +722,7 @@
     const d = t.dataset;
     if (d.open) openWindow(d.open);
     else if (d.openWin) openWindow(d.openWin);
-    else if (d.tab) switchTab(d.tab);
+    else if (d.tab) { S.sfx('click'); switchTab(d.tab); }
     else if ('close' in d) closeWindow();
     else if ('popClose' in d) closePop();
     else if (d.zone) openZone(d.zone);
@@ -722,6 +731,7 @@
     else if (d.reveal) revealSpoiler(d.reveal);
     else if (d.past) togglePast(d.past);
     else if (d.tl) {
+      S.sfx('click');
       const item = $('#tl-' + d.tl);
       if (item) {
         item.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
@@ -854,9 +864,21 @@
       $('[data-globe-loading]').textContent = 'PLANETARY MODEL OFFLINE — WebGL 미지원';
     }
   }
-  $$('[data-zoom]').forEach(b => b.addEventListener('click', () => globe && globe.zoom(parseFloat(b.dataset.zoom))));
-  $('[data-reset]').addEventListener('click', () => globe && globe.reset());
-  $$('[data-filter]').forEach(cb => cb.addEventListener('change', () => globe && globe.setFilter(cb.dataset.filter, cb.checked)));
+  $$('[data-zoom]').forEach(b => b.addEventListener('click', () => { S.sfx('click'); globe && globe.zoom(parseFloat(b.dataset.zoom)); }));
+  $('[data-reset]').addEventListener('click', () => { S.sfx('click'); globe && globe.reset(); });
+  $$('[data-filter]').forEach(cb => cb.addEventListener('change', () => { S.sfx('click'); globe && globe.setFilter(cb.dataset.filter, cb.checked); }));
+
+  // 사운드 토글
+  const soundBtn = $('[data-sound]');
+  const paintSound = on => { soundBtn.classList.toggle('is-off', !on); soundBtn.setAttribute('aria-pressed', on); $('b', soundBtn).textContent = on ? 'ON' : 'OFF'; };
+  paintSound(S.enabled);
+  soundBtn.addEventListener('click', () => { const on = S.toggle(); paintSound(on); if (on) S.sfx('click'); });
+
+  // 커서를 올릴 때 (메뉴 · 마커)
+  document.addEventListener('mouseover', e => {
+    const t = e.target.closest('.menu button, .mk');
+    if (t && !t.contains(e.relatedTarget)) S.sfx('hover');
+  });
 
   /* =========================================================
      BOOT — 비밀기관 접속 화면
@@ -868,6 +890,7 @@
   function finishBoot() {
     if (booted) return;
     booted = true;
+    S.start();
     try { sessionStorage.setItem('res-booted', '1'); } catch (e) { /* 저장소 없음 */ }
     boot.classList.add('is-done');
     app.classList.add('is-on');
@@ -880,6 +903,7 @@
     for (let i = 1; i <= text.length; i++) {
       if (booted) return;
       el.textContent = text.slice(0, i);
+      if (i % 2) S.sfx('type');
       await sleep(speed + Math.random() * speed);
     }
     el.classList.remove('is-typing');
@@ -923,6 +947,7 @@
     bar.style.width = '100%'; num.textContent = '100%';
     await sleep(160 * w);
     $('[data-granted]', boot).classList.add('is-on');
+    S.sfx('granted');
     await sleep(1000 * w);
     finishBoot();
   }
