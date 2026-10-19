@@ -22,5 +22,6 @@
 
 - 인물: `thumb/<이름>.webp` (원본: `bot-assets/<이름>.jpg`)
 - 지역 · 세력: `thumb/eirene.webp` 등 (원본: `assets/img/regions`, `assets/img/factions`)
+- 장소(구역): `thumb/eirene-spire.webp` 등 (원본: `assets/img/zones`)
 - 원본을 바꾸면 축소본도 다시 만들어야 봇에 반영된다.
 
