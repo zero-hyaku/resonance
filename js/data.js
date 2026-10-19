@@ -355,7 +355,7 @@ window.RES = (function () {
     /* ===== 오리진 ===== */
     just: {
       kind: 'origin', color: '#4fd88a', name: '유스트', en: 'Just', weapon: '검', value: '정의',
-      position: '특무지휘관', grade: '오리진', body: '에이레네 북쪽 끝, 판결의 극', affiliation: '중앙집행국',
+      position: '특전지휘관', grade: '오리진', body: '에이레네 북쪽 끝, 판결의 극', affiliation: '중앙집행국',
       awaken: '약 R.E. 2400 (첫 오리진 각성)', contracts: '총 4회 (지휘자 전원 사망)',
       img: 'assets/img/characters/just',
       duty: '행정권과 군 지휘권은 인간 책임자에게 있으나, 강력한 디소넌트 출현 같은 국가적 비상사태에는 투입되어 군의 전권을 일시적으로 위임받는다. 워커홀릭인 탓에 평소에도 집행국의 수많은 업무를 맡고 있다.',
