@@ -15,3 +15,12 @@
 - 하위 폴더를 만들어도 된다. 예) `bot-assets/just/smile.png` → 주소에도 `bot-assets/just/smile.png`
 - 파일 이름은 **영문·숫자·하이픈(-)** 만 쓰는 걸 추천. 한글이나 띄어쓰기가 들어가면 주소가 깨지기 쉽다.
 - 두 방식 모두 저장소가 **공개(public)** 여야 외부에서 보인다. GitHub Pages 주소는 Pages가 켜져 있어야 한다.
+
+## thumb/ (봇 단말기 · 퍼메 선택기용 축소본)
+
+원본(장당 약 1MB)을 그대로 쓰면 단말기 인물 탭과 퍼메 선택기에서 이미지를 받느라 버벅여서, 가로 480px(인물) · 640px(지역 · 세력) WebP 축소본을 따로 둔다.
+
+- 인물: `thumb/<이름>.webp` (원본: `bot-assets/<이름>.jpg`)
+- 지역 · 세력: `thumb/eirene.webp` 등 (원본: `assets/img/regions`, `assets/img/factions`)
+- 원본을 바꾸면 축소본도 다시 만들어야 봇에 반영된다.
+
